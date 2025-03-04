@@ -1,238 +1,368 @@
 <!DOCTYPE html>
-<html lang="fr">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flix Prime - Todo en un solo lugar</title>
-    <!-- Bootstrap 4.5 CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Flix Prime - Las películas más taquilleras</title>
     <style>
-        /* Hero Section */
-        .hero {
-            background: url('your-image-url.jpg') center/cover no-repeat;
-            height: 100vh;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: black;
+            color: white;
+        }
+        .header {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            color: white;
-            text-align: center;
-            background-position: center;
-            background-size: cover;
-        }
-
-        .hero h2 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .hero button {
-            background-color: orange;
-            color: white;
-            border: none;
             padding: 15px 30px;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .hero button:hover {
-            background-color: darkorange;
-        }
-
-        header {
-            position: absolute;
-            width: 100%;
-            z-index: 10;
-        }
-
-        footer {
-            background-color: #343a40;
+            background-color: #000;
             color: white;
-            padding: 1rem;
+        }
+        .logo {
+            color: #ff6b00;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+        }
+        .hero {
             position: relative;
-            bottom: 0;
+            height: 80vh;
+            color: white;
+            overflow: hidden;
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slide {
+            min-width: 100%;
+            height: 80vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+        }
+        .slide-content {
+            max-width: 50%;
+        }
+        .slide-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #ff6b00;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .dot.active {
+            background-color: #ff6b00;
+        }
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        .content {
+            display: flex;
+            align-items: center;
             width: 100%;
+            gap: 40px;
         }
-
-        /* Navbar Customizations */
-        .navbar-nav .nav-link {
-            color: white !important;
-            font-size: 1.1rem;
+        .text-section {
+            flex: 1;
+            max-width: 50%;
         }
-
-        .navbar-nav .nav-link:hover {
-            color: orange !important;
-        }
-
-        .section-title {
-            margin-top: 3rem;
+        .title {
             font-size: 2.5rem;
             font-weight: bold;
-            text-align: center;
-            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.2;
         }
-
-        .feature-list {
-            padding: 2rem;
-            background-color: #f8f9fa;
+        .description {
+            font-size: 1rem;
+            color: #d3d3d3;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
-
-        .feature-item {
-            margin-bottom: 1.5rem;
+        .features {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
         }
-
-        .feature-item h5 {
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ff6b00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .feature-text {
+            font-size: 0.8rem;
+        }
+        .pricing {
+            background-color: #ff6b00;
+            color: white;
+            display: inline-block;
+            padding: 15px 25px;
             font-size: 1.5rem;
             font-weight: bold;
+            border-radius: 8px;
         }
-
-        .feature-item p {
-            font-size: 1.1rem;
+        .image-section {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
         }
-
-        .pricing-card {
-            text-align: center;
-            background: #f8f9fa;
-            padding: 30px;
+        .user-image {
+            max-width: 450px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
-        .pricing-card h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+        .footer-icons {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 30px;
         }
-
-        .pricing-card p {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
+        .footer-icon {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
         }
-
-        .pricing-card .btn-primary {
-            background-color: orange;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .pricing-card .btn-primary:hover {
-            background-color: darkorange;
+        .footer-icon-logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ff6b00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
         }
     </style>
 </head>
-
 <body>
-    <!-- Header -->
-    <header class="bg-dark text-white">
-        <div class="container">
-            <h1 class="text-center py-3">FLIX PRIME</h1>
-            <nav class="navbar navbar-expand-lg navbar-dark">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <img src="Img1.jpg" alt=" " class="img-fluid radius-image bit9">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item"><a class="nav-link" href="#">Maison</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">À Propos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Contenu</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Choisissez Votre Pays</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Contactez le service commercial</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+    <header class="header">
+        <div class="logo">FLIX PRIME</div>
+        <nav class="nav">
+            <a href="#">Home</a>
+            <a href="#">Acerca</a>
+            <a href="#">Contenido</a>
+            <a href="#">Elige Tu País</a>
+            <a href="#" class="contact-sales">Contactar ventas</a>
+        </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
-            <img src="Img1.jpg" alt="Télevision">
-            <h2>Les meilleures séries actuelles</h2>
-            <p>Tout cela pour seulement S/19.90 par mois</p>
-            <button onclick="navigateTo('Essayer')">Essayez-le gratuitement</button>
-        </div>
-    </section>
-
-    <!-- Pourquoi nous choisir -->
-    <section class="feature-list">
-        <div class="container">
-            <img src="Img1" alt="Télevision">
-            <h3 class="section-title">Pourquoi nous choisir</h3>
-            <div class="row">
-                <div class="col-md-4 feature-item">
-                    <img src="assets/images/televisa.png" alt=" " class="img-fluid radius-image bit9">
-                    <h5>Retrouvez toutes les séries, films et chaînes en direct</h5>
-                    <p>Pas besoin de s’abonner à plusieurs plateformes ; Flix Prime propose la consolidation de contenus provenant de diverses plateformes, de chaînes premium, de télévision en direct et de sports, le tout en un seul endroit et à un prix imbattable.</p>
-                </div>
-                <div class="col-md-4 feature-item">
-                    <h5>Assistance 24h/24 et 7j/7</h5>
-                    <p>Nous avons une attention personnalisée permanente.</p>
-                </div>
-                <div class="col-md-4 feature-item">
-                    <h5>Activation en 5 minutes</h5>
-                    <p>Seule une connexion Internet d'au moins 30 Mo est requise.</p>
+        <div class="slider">
+            <div class="slide" style="background-image: url('guardians-bg.jpg')">
+                <div class="slide-content">
+                    <h1 class="slide-title">Las películas más taquilleras</h1>
+                    <p>TODO POR SOLO S/19.90 AL MES</p>
+                    <a href="#" class="cta-button">Pruébalo gratis</a>
                 </div>
             </div>
         </div>
+        <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
     </section>
 
-    <!-- Contenu Section -->
-    <section class="feature-list">
-        <div class="container">
-            <h3 class="section-title">Tout le contenu que vous aimez</h3>
-            <div class="row">
-                <div class="col-md-4 feature-item">
-                    <h5>+1400 chaînes de télévision en direct</h5>
-                    <p>La télévision locale et internationale de plus de 30 pays et les principales chaînes du réseau.</p>
+    <div class="container">
+        <div class="header">POR QUÉ ELEGIRNOS</div>
+
+        <div class="content">
+            <div class="text-section">
+                <h1 class="title">Obtén todas las series, películas, y canales en vivo en un solo lugar</h1>
+                <p class="description">
+                    No es necesario suscribirte a múltiples plataformas; Flix Prime ofrece la consolidación de contenido de diversas plataformas, canales premium, televisión en vivo y deportes, todo en un único lugar y a un precio imbatible.
+                </p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">24/7</div>
+                        <div class="feature-text">
+                            Soporte<br>
+                            Contamos con atención personalizada permanente
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">5</div>
+                        <div class="feature-text">
+                            Activación en 5 minutos<br>
+                            Solo se requiere una conexión a Internet de mínimo 30mb
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4 feature-item">
-                    <h5>+13000 films</h5>
-                    <p>Les dernières nouveautés, films des principales plateformes, cinéma latin et classiques du cinéma.</p>
-                </div>
-                <div class="col-md-4 feature-item">
-                    <h5>+2500 séries</h5>
-                    <p>Des centaines de séries des principales plateformes, ainsi que des séries classiques.</p>
-                </div>
+
+                <div class="pricing">S/19.90 POR MES (hasta 3 dispositivos)</div>
+            </div>
+
+            <div class="image-section">
+                <img src="https://via.placeholder.com/450x600?text=User+Image" alt="Happy User" class="user-image">
             </div>
         </div>
-    </section>
 
-    <!-- Pricing Section -->
-    <section class="container my-5">
-        <div class="pricing-card">
-            <h3>S/ 19,90 par mois</h3>
-            <p>Accédez à tout le contenu sur jusqu'à 3 appareils simultanément.</p>
-            <p><strong>Inclus :</strong> Sports en direct, séries, films, chaînes en direct et plus encore.</p>
-            <a href="#" class="btn btn-primary">Essayez-le gratuitement</a>
+        <div class="footer-icons">
+            <div class="footer-icon">
+                <div class="footer-icon-logo">24/7</div>
+                Soporte 24/7
+            </div>
+            <div class="footer-icon">
+                <div class="footer-icon-logo">5</div>
+                Activación en 5 minutos
+            </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3">
-        <p>© 2024 Flix Prime. Tout en un seul endroit.</p>
-    </footer>
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Flix Prime - Obtén todas las series, películas, y canales en vivo</title>
+    <style>
+        /* Previous styles remain the same */
 
-    <!-- Bootstrap JS and Popper.js for full Bootstrap functionality -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- Custom JavaScript -->
-    <script>
-        // Function to handle navigation on button click (for now, it's a simple alert for demonstration)
-        function navigateTo(section) {
-            alert("Navigating to " + section);
+        .device-section {
+            background-color: #121212;
+            padding: 60px 20px;
+            text-align: center;
         }
-    </script>
-</body>
 
+        .device-title {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        .device-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .device-card {
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .device-card:hover {
+            transform: scale(1.05);
+        }
+
+        .device-icon {
+            width: 100px;
+            height: 100px;
+            background-color: #ff6b00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .device-icon img {
+            width: 50px;
+            height: 50px;
+            filter: brightness(0) invert(1);
+        }
+
+        .device-name {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .device-description {
+            color: #a0a0a0;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Previous body content remains the same -->
+
+    <!-- New Device Compatibility Section -->
+    <div class="device-section">
+        <h2 class="device-title">Desde Cualquier Dispositivo</h2>
+        <div class="device-grid">
+            <div class="device-card">
+                <div class="device-icon">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjAgMThoMlY2aC0ydjEyem0tMTAtNmgtMnYyaDJ2LTJ6bTYgMGgtMnYyaDJ2LTJ6bS04LTJoLTJ2MmgyVjEwem0tNCAwSDR2MmgyVjEwek0yIDQuMDdWMmgyMHYyLjA3YzAgLjk2LS43OCAxLjc2LTEuNzQgMS43NkgzLjc0QTEuNzQgMS43NCAwIDAgMSAyIDQuMDd6TTIyIDIwdjFoLTIwdi0xaDIweiIvPjwvc3ZnPg==">
+                </div>
+                <h3 class="device-name">Smart TV</h3>
+                <p class="device-description">Disponible en todos los Smart TV de cualquier marca</p>
+            </div>
+            <div class="device-card">
+                <div class="device-icon">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTYgMUg4QzYuMTQgMSA1IDIuMDQgNSAzLjkydjE2LjE2QzUgMjEuOTYgNi4xNCAyMyA4IDIzaDE2YzEuODYgMCAzLTEuMDQgMy0zLjkyVjMuOTJDMjcgMi4wNCAyNS44NiAxIDI0IDFtLTggMjBoLTh2LTE2aDh2MTZ6bTEwLTJoLTJ2LTJoMnYyem0yLTNoLTR2LThoNHY4em0tMi02aC0yVjdoMnYyem0yLTNoLTRWNGg0djJ6Ii8+PC9zdmc+">
+                </div>
+                <h3 class="device-name">Smartphone</h3>
+                <p class="device-description">Smartphone o Tablet con sistema Android o iOS</p>
+            </div>
+            <div class="device-card">
+                <div class="device-icon">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjEgMmgtMThDMi40NCAyIDIgMi40NCAyIDN2MTJjMCAuNTYuNDQgMSAxIDFoN3YySDhjLS41NSAwLTEgLjQ1LTEgMXMuNDUgMSAxIDFoOGMuNTUgMCAxLS40NSAxLTFzLS40NS0xLTEtMWgtMnYtMmg3Yy41NiAwIDEtLjQ0IDEtMVYzYzAtLjU2LS40NC0xLTEtMXptLTEgMTNIMlYzaDE4djEyeiIvPjwvc3ZnPg==">
+                </div>
+                <h3 class="device-name">PC / Laptop</h3>
+                <p class="device-description">Puedes usarlo desde tu laptop o PC de escritorio.</p>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
