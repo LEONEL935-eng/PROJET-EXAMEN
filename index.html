@@ -1,33 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flix Prime - Todo en un solo lugar</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .hero {
+            background: url('your-image-url.jpg') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        .hero h2 {
+            font-size: 3em;
+        }
+        .hero p {
+            font-size: 1.5em;
+        }
+        .hero button {
+            background: orange;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        header {
+            position: absolute;
+            width: 100%;
+            z-index: 10;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Flix Prime</h1>
-        <nav>
-            <ul>
-                <li><a href="#" onclick="navigateTo('Accueil')">Accueil</a></li>
-                <li><a href="#" onclick="navigateTo('Séries')">Séries</a></li>
-                <li><a href="#" onclick="navigateTo('Films')">Films</a></li>
-                <li><a href="#" onclick="navigateTo('Sports')">Sports</a></li>
-                <li><a href="#" onclick="navigateTo('Animes')">Animes</a></li>
-                <li><a href="#" onclick="navigateTo('Contact')">Contact</a></li>
-            </ul>
-        </nav>
+    <header class="bg-dark text-white">
+        <div class="container">
+            <h1 class="text-center py-3">FLIX PRIME</h1>
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="#" onclick="navigateTo('Accueil')">Maison</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" onclick="navigateTo('A Propos')">À Propos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" onclick="navigateTo('Contenu')">Contenu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" onclick="navigateTo('Choisissez Votre Pays')">Choisissez Votre Pays</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" onclick="navigateTo('Contact')">Contactez le service commercial</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
     </header>
     <main id="mainContent">
-        <h2>Bienvenue sur Flix Prime</h2>
-        <p>Tout le meilleur du divertissement en un seul endroit !</p>
-        <p><strong>Abonnez-vous pour seulement S/19.90 par mois.</strong></p>
+        <section class="hero">
+            <div class="container">
+                <h2>Les meilleures séries actuelles</h2>
+                <p>Tout cela pour seulement S/19.90 par mois</p>
+                <button onclick="navigateTo('Essayer')">Essayez-le gratuitement</button>
+            </div>
+        </section>
     </main>
-    <footer>
-        <p>© 2024 Flix Prime. Tout en un seul endroit. Contact: info@flixprime.cc</p>
+    <footer class="bg-dark text-white text-center py-3">
+        <p>© 2024 Flix Prime. Tout en un seul endroit.</p>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
